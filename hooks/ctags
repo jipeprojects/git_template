@@ -2,6 +2,6 @@
 mkdir .git/tags_lock 2>/dev/null || exit 0
 trap "rmdir .git/tags_lock; rm -f .git/tags.$$" EXIT
 
-ctags --tag-relative -R -f .git/tags.$$ --exclude=.git --languages=C,C++,Python
+ctags --tag-relative --sort=foldcase --extra=+f -R -f .git/tags.$$ --exclude=.git --languages=C,C++,Python
 mv .git/tags.$$ .git/tags
 
