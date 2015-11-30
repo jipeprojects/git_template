@@ -4,7 +4,21 @@ if [ ! -z "$GIT_CTAGS_HOOK" ]; then
   mkdir .git/tags_lock 2>/dev/null || exit 0
   trap "rmdir .git/tags_lock; rm -f .git/tags.$$" EXIT
 
-  ctags --tag-relative --sort=foldcase --extra=+f -R -f .git/tags.$$ --exclude=.git --languages=C,C++,Python
+  /usr/local/bin/ctags \
+    -R \
+    --tag-relative \
+    --sort=foldcase \
+    -f .git/tags.$$ \
+    --exclude=.git \
+    --exclude=vendor/*/vendor \
+    --exclude=bin/* \
+    --exclude=web/* \
+    --exclude=tests/* \
+    --exclude=*/Tests/* \
+    --exclude=*test* \
+    --exclude=*Form/Type* \
+    --languages=php \
+
   mv .git/tags.$$ .git/tags
 fi
 
